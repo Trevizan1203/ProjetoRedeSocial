@@ -1,33 +1,53 @@
-Claro! Aqui está uma versão mais resumida do README:
+# Spring Security Project
 
----
-
-# Projeto Spring Security com JWT
-
-## Descrição
-
-Aplicação Spring Boot com autenticação JWT e controle de acesso baseado em roles. Inclui gerenciamento de usuários e posts.
+Este projeto é uma implementação de um sistema de autenticação e controle de permissões usando Spring Security. Ele oferece um exemplo prático de como implementar autenticação JWT, gerenciamento de usuários, roles e permissões administrativas.
 
 ## Funcionalidades
 
-- **Autenticação JWT**: Gera e valida tokens JWT.
-- **Administração de Usuários**: Criação e gerenciamento de usuários com roles.
-- **Controle de Posts**: CRUD básico para posts.
+- Autenticação de usuários com JWT (JSON Web Token)
+- Configuração de usuários administrativos
+- Controle de permissões baseado em roles
+- CRUD para entidades de usuários e posts
+- Segurança configurada para endpoints RESTful
 
-## Entidades
+## Estrutura do Projeto
 
-- **User**: Representa um usuário com `id`, `username`, `password` e `roles`.
-- **Role**: Representa uma role com `roleId` e `roleName`.
-- **Post**: Representa um post com `postId`, `user`, `conteudo` e `creationTimestamp`.
+- `config/`: Configurações de segurança, incluindo classes para configurar o acesso e a autenticação.
+  - **AdminUserConfig.java**: Configuração de usuário administrador.
+  - **SecurityConfig.java**: Configuração da segurança, incluindo JWT.
+  
+- `controller/`: Controladores REST para gerenciamento de usuários, tokens e posts.
+  - **PostController.java**: Controlador para operações de CRUD relacionadas a posts.
+  - **TokenController.java**: Controlador para operações relacionadas a autenticação e emissão de tokens.
+  - **UserController.java**: Controlador para operações de CRUD relacionadas a usuários.
 
-## Repositórios
+- `DTO/`: Objetos de transferência de dados usados para comunicação entre cliente e servidor.
+  - **CreatePost.java, CreateUser.java**: DTOs para criação de posts e usuários.
+  - **LoginRequest.java, LoginResponse.java**: DTOs para a requisição e resposta do login.
 
-- **UserRepository**: Operações CRUD para `User`.
-- **RoleRepository**: Operações CRUD para `Role`.
-- **PostRepository**: Operações CRUD para `Post`.
+- `entities/`: Definições de entidades JPA.
+  - **Post.java**: Entidade de post.
+  - **User.java**: Entidade de usuário.
+  - **Role.java**: Entidade de role (permissão).
 
-## Endpoints
+- `repository/`: Interfaces para comunicação com o banco de dados.
+  - **PostRepository.java, RoleRepository.java, UserRepository.java**: Repositórios para acessar as entidades do banco de dados.
 
-- **`/login`** (POST): Autentica e retorna um token JWT.
-- **`/users`** (POST, GET): Cria e obtém usuários.
-- **`/posts`** (POST, DELETE): Cria e deleta posts.
+## Configuração
+
+- **application.properties**: Contém as configurações de conexão com o banco de dados e outras propriedades da aplicação.
+  
+- **private.pem & public.pem**: Chaves privadas e públicas usadas para a assinatura e verificação de JWT.
+
+## Pré-requisitos
+
+- Java 17+
+- Maven
+- Spring Boot
+- Banco de dados PostgreSQL
+
+## Melhorias Futuras
+
+- Implementar mais testes unitários e de integração.
+- Adicionar documentação com Swagger.
+- Suporte para OAuth2.
