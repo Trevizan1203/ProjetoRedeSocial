@@ -14,6 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/posts")
 public class PostController {
 
     private final PostRepository postRepository;
@@ -24,10 +25,12 @@ public class PostController {
         this.userRepository = userRepository;
     }
 
-    @PostMapping("/posts")
+    @PostMapping("/create")
     public ResponseEntity<Void> createPost(@RequestBody CreatePost postDto, JwtAuthenticationToken token) {
 
         var user = userRepository.findById(UUID.fromString(token.getName()));
+        if(user.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         var post = new Post();
         post.setUser(user.get());
         post.setConteudo(postDto.conteudo());
@@ -36,7 +39,43 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/posts/id")
+    @PostMapping("/edit/{id}")
+    public ResponseEntity<Void> editPost(@RequestBody CreatePost postDtoNew, JwtAuthenticationToken token, @PathVariable("id") Long postId) {
+
+        var post = postRepository.findById(postId);
+        if(post.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post nao encontrado");
+        var user = userRepository.findById(UUID.fromString(token.getName()));
+        if(user.isEmpty() || !user.get().getUsername().equals(post.get().getUser().getUsername()))
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User nao existente ou diferente do criador do post");
+
+        Post editedPost = new Post();
+        editedPost.setPostId(postId);
+        editedPost.setConteudo(postDtoNew.conteudo());
+        editedPost.setUser(user.get());
+
+        postRepository.deleteById(postId);
+        postRepository.save(editedPost);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Void> readPostById(@PathVariable("id") Long postId, JwtAuthenticationToken token) {
+
+        var post = postRepository.findById(postId);
+        if(post.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post nao encontrado");
+        var user = userRepository.findById(UUID.fromString(token.getName()));
+        if(user.isEmpty())
+            throw new ResponseStatusException(HttpStatus.LOCKED, "Voce precisa ser um usuario para ler qualquer post");
+        System.out.println("Post de: " + user.get().getUsername());
+        System.out.println("Conteudo: " + post.get().getConteudo());
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable("id") Long postId, JwtAuthenticationToken token) {
 
         var user = userRepository.findById(UUID.fromString(token.getName()));

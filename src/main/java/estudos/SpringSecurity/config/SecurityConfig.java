@@ -36,9 +36,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/users").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/auth/*").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/users/*").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/posts/*").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/actuator/*").permitAll()
                         .anyRequest().authenticated())// qualquer requisicao http necessita de ser autentticada
                 .csrf(crsf -> crsf.disable())
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults())) // configura a atuacao do OAuth2 usando jwt com suas configuracoes padrao
