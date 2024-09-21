@@ -46,16 +46,16 @@ public class UserController {
             Role role = new Role();
             role.setRoleName(Role.Values.BASIC.name());
             roleRepository.save(role);
-            basicRole = roleRepository.findByRoleName(Role.Values.ADMIN.name());
+            basicRole = roleRepository.findByRoleName(Role.Values.BASIC.name());
         }
 
-        final var finalRoleAdmin = basicRole;
+        final var finalRole = basicRole;
 
         //criacao de novo user e upar para db
         User newUser = new User();
         newUser.setUsername(user.username());
         newUser.setPassword(passwordEncoder.encode(user.password()));
-        newUser.setRoles(Set.of(basicRole));
+        newUser.setRoles(Set.of(finalRole));
 
         userRepository.save(newUser);
 
