@@ -39,7 +39,7 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("/edit/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> editPost(@RequestBody CreatePost postDtoNew, JwtAuthenticationToken token, @PathVariable("id") Long postId) {
 
         var post = postRepository.findById(postId);
