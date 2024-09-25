@@ -14,7 +14,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/posts")
+@RequestMapping("/v1/posts")
 public class PostController {
 
     private final PostRepository postRepository;

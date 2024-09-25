@@ -20,7 +20,7 @@ import java.time.Instant;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/v1/auth")
 public class TokenController {
 
     private final JwtEncoder jwtEncoder;
