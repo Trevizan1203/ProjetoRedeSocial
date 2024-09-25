@@ -1,6 +1,6 @@
 package estudos.SpringSecurity.entities;
 
-import estudos.SpringSecurity.controller.DTO.LoginRequest;
+import estudos.SpringSecurity.api.v1.controller.DTO.LoginRequest;
 import jakarta.persistence.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 

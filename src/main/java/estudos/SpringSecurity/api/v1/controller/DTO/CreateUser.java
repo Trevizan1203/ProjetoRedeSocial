@@ -1,4 +1,4 @@
-package estudos.SpringSecurity.controller.DTO;
+package estudos.SpringSecurity.api.v1.controller.DTO;
 
 public record CreateUser(String username, String password) {
 }

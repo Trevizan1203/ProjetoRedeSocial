@@ -1,6 +1,6 @@
-package estudos.SpringSecurity.controller;
+package estudos.SpringSecurity.api.v1.controller;
 
-import estudos.SpringSecurity.controller.DTO.CreatePost;
+import estudos.SpringSecurity.api.v1.controller.DTO.CreatePost;
 import estudos.SpringSecurity.entities.Post;
 import estudos.SpringSecurity.entities.Role;
 import estudos.SpringSecurity.repository.PostRepository;

@@ -1,6 +1,6 @@
-package estudos.SpringSecurity.controller;
+package estudos.SpringSecurity.api.v1.controller;
 
-import estudos.SpringSecurity.controller.DTO.CreateUser;
+import estudos.SpringSecurity.api.v1.controller.DTO.CreateUser;
 import estudos.SpringSecurity.entities.Role;
 import estudos.SpringSecurity.entities.User;
 import estudos.SpringSecurity.repository.RoleRepository;

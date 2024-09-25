@@ -1,6 +1,6 @@
 package estudos.SpringSecurity;
 
-import estudos.SpringSecurity.controller.DTO.LoginRequest;
+import estudos.SpringSecurity.api.v1.controller.DTO.LoginRequest;
 import estudos.SpringSecurity.entities.Role;
 import estudos.SpringSecurity.entities.User;
 import org.junit.jupiter.api.BeforeEach;

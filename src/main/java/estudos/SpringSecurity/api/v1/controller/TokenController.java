@@ -1,7 +1,7 @@
-package estudos.SpringSecurity.controller;
+package estudos.SpringSecurity.api.v1.controller;
 
-import estudos.SpringSecurity.controller.DTO.LoginRequest;
-import estudos.SpringSecurity.controller.DTO.LoginResponse;
+import estudos.SpringSecurity.api.v1.controller.DTO.LoginRequest;
+import estudos.SpringSecurity.api.v1.controller.DTO.LoginResponse;
 import estudos.SpringSecurity.entities.Role;
 import estudos.SpringSecurity.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
