@@ -26,8 +26,8 @@ public class SpringDocConfig {
                         )
                 )
                 .externalDocs(new ExternalDocumentation()
-                        .description("Link Test")
-                        .url("https://test.com"))
+                        .description("Github")
+                        .url("https://github.com/Trevizan1203/ProjetoRedeSocial"))
                 .tags(
                         Arrays.asList(
                                 new Tag().name("Posts").description("Requisicoes de Posts"),
