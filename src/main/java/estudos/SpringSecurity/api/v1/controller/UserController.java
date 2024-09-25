@@ -5,6 +5,8 @@ import estudos.SpringSecurity.entities.Role;
 import estudos.SpringSecurity.entities.User;
 import estudos.SpringSecurity.repository.RoleRepository;
 import estudos.SpringSecurity.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.Set;
 
+@Tag(name = "User")
 @RestController
 @RequestMapping("/v1/users")
 public class UserController {
@@ -30,6 +33,7 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Operation(summary = "Criacao de Usuario")
     @PostMapping("/create")
     @Transactional
     public ResponseEntity<Void> createUser(@RequestBody CreateUser user) {
@@ -62,6 +66,7 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Listagem de Usuarios")
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public ResponseEntity<List<User>> getAllUsers() {

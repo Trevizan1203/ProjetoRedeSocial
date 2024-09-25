@@ -4,6 +4,8 @@ import estudos.SpringSecurity.api.v1.controller.DTO.LoginRequest;
 import estudos.SpringSecurity.api.v1.controller.DTO.LoginResponse;
 import estudos.SpringSecurity.entities.Role;
 import estudos.SpringSecurity.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.Instant;
 import java.util.stream.Collectors;
 
+@Tag(name = "Login")
 @RestController
 @RequestMapping("/v1/auth")
 public class TokenController {
@@ -33,6 +36,7 @@ public class TokenController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Operation(summary = "Login do Usuario")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
 

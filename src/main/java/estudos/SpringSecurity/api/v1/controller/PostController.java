@@ -5,6 +5,8 @@ import estudos.SpringSecurity.entities.Post;
 import estudos.SpringSecurity.entities.Role;
 import estudos.SpringSecurity.repository.PostRepository;
 import estudos.SpringSecurity.repository.UserRepository;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
@@ -13,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.UUID;
 
+@Tag(name = "Posts")
 @RestController
 @RequestMapping("/v1/posts")
 public class PostController {
@@ -25,6 +28,7 @@ public class PostController {
         this.userRepository = userRepository;
     }
 
+    @Operation(summary = "Criacao de Posts")
     @PostMapping("/create")
     public ResponseEntity<Void> createPost(@RequestBody CreatePost postDto, JwtAuthenticationToken token) {
 
@@ -39,6 +43,7 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Edicao de Posts")
     @PutMapping("/{id}")
     public ResponseEntity<Void> editPost(@RequestBody CreatePost postDtoNew, JwtAuthenticationToken token, @PathVariable("id") Long postId) {
 
@@ -60,6 +65,7 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Leitura de Posts (atualmente no console)")
     @GetMapping("/{id}")
     public ResponseEntity<Void> readPostById(@PathVariable("id") Long postId, JwtAuthenticationToken token) {
 
@@ -75,6 +81,7 @@ public class PostController {
         return ResponseEntity.ok().build();
     }
 
+    @Operation(summary = "Delecao de Posts")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable("id") Long postId, JwtAuthenticationToken token) {
 
