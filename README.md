@@ -1,3 +1,109 @@
+```mermaid
+classDiagram
+    class Post {
+        -Long postId
+        -String conteudo
+        -Instant creationTimestamp
+        -User user
+    }
+
+    class Role {
+        -Long roleId
+        -String roleName
+    }
+
+    class User {
+        -UUID id
+        -String username
+        -String password
+        -Set<Role> roles
+    }
+
+    class PostController {
+        -PostRepository postRepository
+        -UserRepository userRepository
+        +createPost(CreatePost postDto, JwtAuthenticationToken token)
+        +editPost(CreatePost postDtoNew, JwtAuthenticationToken token, Long postId)
+        +readPostById(Long postId, JwtAuthenticationToken token)
+        +deletePost(Long postId, JwtAuthenticationToken token)
+    }
+
+    class TokenController {
+        -JwtEncoder jwtEncoder
+        -UserRepository userRepository
+        -BCryptPasswordEncoder passwordEncoder
+        +login(LoginRequest loginRequest)
+    }
+
+    class UserController {
+        -UserRepository userRepository
+        -RoleRepository roleRepository
+        -BCryptPasswordEncoder passwordEncoder
+        +createUser(CreateUser user)
+        +getAllUsers()
+    }
+
+    class SecurityConfig {
+        -RSAPublicKey publicKey
+        -RSAPrivateKey privateKey
+        +securityFilterChain(HttpSecurity http)
+        +jwtEncoder()
+        +jwtDecoder()
+        +bCryptPasswordEncoder()
+    }
+
+    class CreatePost {
+        -String conteudo
+    }
+
+    class LoginRequest {
+        -String username
+        -String password
+    }
+
+    class LoginResponse {
+        -String token
+        -Long expiresIn
+    }
+
+    class CreateUser {
+        -String username
+        -String password
+    }
+
+    class PostRepository {
+        +save(Post post)
+        +deleteById(Long id)
+        +findById(Long id)
+        +findAll()
+    }
+
+    class UserRepository {
+        +save(User user)
+        +findById(UUID id)
+        +findByUsername(String username)
+        +findAll()
+    }
+
+    class RoleRepository {
+        +save(Role role)
+        +findByRoleName(String roleName)
+    }
+
+    %% Relações
+    Post "0..*" --> "1" User : user
+    User "0..*" --> "0..*" Role : roles
+    PostController --> PostRepository
+    PostController --> UserRepository
+    TokenController --> JwtEncoder
+    TokenController --> UserRepository
+    UserController --> UserRepository
+    UserController --> RoleRepository
+    SecurityConfig --> JwtEncoder
+    SecurityConfig --> JwtDecoder
+    SecurityConfig --> BCryptPasswordEncoder
+```
+
 # Spring Security Project
 
 Este projeto é uma implementação de um sistema de autenticação e controle de permissões usando Spring Security. Ele oferece um exemplo prático de como implementar autenticação JWT, gerenciamento de usuários, roles e permissões administrativas.
