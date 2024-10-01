@@ -43,7 +43,7 @@ public class UserController {
         var userDb = userRepository.findByUsername(user.username());
         //verificacao da existencia
         if(userDb.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY); // exceção de erro de negócio
+            throw new ResponseStatusException(HttpStatus.CONFLICT,"Usuario ja existente"); // exceção de erro de negócio
         }
 
         if(basicRole == null) {

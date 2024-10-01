@@ -34,7 +34,7 @@ public class PostController {
 
         var user = userRepository.findById(UUID.fromString(token.getName()));
         if(user.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario nao encontrado");
         var post = new Post();
         post.setUser(user.get());
         post.setConteudo(postDto.conteudo());
@@ -52,7 +52,7 @@ public class PostController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post nao encontrado");
         var user = userRepository.findById(UUID.fromString(token.getName()));
         if(user.isEmpty() || !user.get().getUsername().equals(post.get().getUser().getUsername()))
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User nao existente ou diferente do criador do post");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "User nao existente ou diferente do criador do post");
 
         Post editedPost = new Post();
         editedPost.setPostId(postId);
@@ -74,7 +74,7 @@ public class PostController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Post nao encontrado");
         var user = userRepository.findById(UUID.fromString(token.getName()));
         if(user.isEmpty())
-            throw new ResponseStatusException(HttpStatus.LOCKED, "Voce precisa ser um usuario para ler qualquer post");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Voce precisa ser um usuario para ler qualquer post");
         System.out.println("Post de: " + user.get().getUsername());
         System.out.println("Conteudo: " + post.get().getConteudo());
 
@@ -87,7 +87,7 @@ public class PostController {
 
         var user = userRepository.findById(UUID.fromString(token.getName()));
         var post = postRepository.findById(postId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Post nao encontrado"));
 
         var isAdmin = user.get().getRoles()
                 .stream()
