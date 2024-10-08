@@ -104,9 +104,9 @@ classDiagram
     SecurityConfig --> BCryptPasswordEncoder
 ```
 
-# Spring Security Project
+# Projeto Rede Social
 
-Este projeto é uma implementação de um sistema de autenticação e controle de permissões usando Spring Security. Ele oferece um exemplo prático de como implementar autenticação JWT, gerenciamento de usuários, roles e permissões administrativas.
+Este projeto se trata de um protótipo de rede social, visando entender os conceitos envolvidos quando se trabalha com uma aplicação que utiliza Spring Boot, implementando toda a estrutura necessária, além de segurança e testes da aplicação.
 
 ## Funcionalidades
 
