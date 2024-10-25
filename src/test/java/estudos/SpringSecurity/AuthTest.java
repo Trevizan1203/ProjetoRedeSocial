@@ -11,14 +11,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -61,7 +59,7 @@ public class AuthTest {
     @Test
     public void testeErroCredenciaisInvalidasBancoDados() throws Exception {
         //URI e uma estrutura para armazenamento de urls
-        URI uri = new URI("/auth/login");
+        URI uri = new URI("/v1/auth/login");
 
         String conteudo = "{\"username\" : \"gustavo\", \"password\" : \"123456\"}";
 

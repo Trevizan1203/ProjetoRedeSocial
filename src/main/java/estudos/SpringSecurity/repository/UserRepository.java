@@ -11,5 +11,6 @@ import java.util.UUID;
 public interface UserRepository extends JpaRepository<User, UUID> {
 
     Optional<User> findByUsername(String username); //query feita automaticamente, via JPA
+    void deleteById(UUID id);
     //optional usado visto que, a funcao pode ou nao retornar algo, onde nesses casos se torna necessario o tratamento de nao retorno
 }

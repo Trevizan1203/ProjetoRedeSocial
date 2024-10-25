@@ -1,6 +1,6 @@
 package estudos.SpringSecurity.api.v1.controller;
 
-import estudos.SpringSecurity.api.v1.controller.DTO.CreateUser;
+import estudos.SpringSecurity.api.v1.controller.DTO.UserDTO;
 import estudos.SpringSecurity.entities.User;
 import estudos.SpringSecurity.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +10,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.server.resource.authentication.JwtAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class UserController {
     @Operation(summary = "Criacao de Usuario")
     @PostMapping("/create")
     @Transactional
-    public ResponseEntity<Void> createUser(@RequestBody CreateUser user) {
+    public ResponseEntity<Void> createUser(@RequestBody UserDTO user) {
 
         userService.createUser(user);
 
@@ -43,4 +44,13 @@ public class UserController {
         var users = userService.getAllUsers();
         return ResponseEntity.ok(users);
     }
+
+    @Operation(summary = "Delecao de usuario", security = @SecurityRequirement(name = "bearerAuth"))
+    @DeleteMapping("/delete")
+    @Transactional
+    public ResponseEntity<Void> deleteUser(@RequestBody UserDTO user, JwtAuthenticationToken token) {
+        userService.deleteUser(token, user);
+        return ResponseEntity.ok().build();
+    }
+
 }
